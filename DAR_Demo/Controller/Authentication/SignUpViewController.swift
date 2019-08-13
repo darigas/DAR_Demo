@@ -178,9 +178,9 @@ class SignUpViewController: UIViewController {
                             }
                         })
                     }
-                    
-                    let controller = BottomNavigationController()
-                    self.navigationController?.pushViewController(controller, animated: true)
+                    UserDefaults.standard.set(true, forKey: "loggedIn")
+//                    let controller = BottomNavigationController()
+//                    self.navigationController?.pushViewController(controller, animated: true)
                 }
                 else {
                     self.showAlert(message: (error!.localizedDescription))

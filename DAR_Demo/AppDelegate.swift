@@ -15,15 +15,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
+        if UserDefaults.standard.bool(forKey: "loggedIn") == nil {
+            UserDefaults.standard.set(false, forKey: "loggedIn")
+        }
+        else if UserDefaults.standard.bool(forKey: "loggedIn") == false {
+            let initialViewController = UINavigationController(rootViewController: ViewController())
+            initialViewController.isNavigationBarHidden = true
+            window?.rootViewController = initialViewController
+        }
+        else if UserDefaults.standard.bool(forKey: "loggedIn") == true {
+            let initialViewController = BottomNavigationController()
+            window?.rootViewController = initialViewController
+        }
+        
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
-        let initialViewController = UINavigationController(rootViewController: ViewController())
-        initialViewController.isNavigationBarHidden = true
-        window?.rootViewController = initialViewController
         
         FirebaseApp.configure()
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
