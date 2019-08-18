@@ -11,12 +11,11 @@ import UIKit
 class CommonButton: UIButton {
     
     var borderWidth = 2.0
-    var borderColor = UIColor.black.cgColor
     
     var titleText: String? {
         didSet {
             self.setTitle(titleText, for: .normal)
-            self.setTitleColor(UIColor.white, for: .normal)
+            self.setTitleColor(.white, for: .normal)
         }
     }
     
@@ -35,9 +34,14 @@ class CommonButton: UIButton {
     
     func setup() {
         self.clipsToBounds = true
-        self.backgroundColor = .blue
-//        self.layer.cornerRadius = self.frame.size.width / 2.0
-        self.layer.borderColor = borderColor
-        self.layer.borderWidth = CGFloat(borderWidth)
+        self.backgroundColor = CustomColor.violetLight
+        self.layer.cornerRadius = 10
+        self.titleLabel?.font = CustomFont.marion
+    }
+    
+    override var isHighlighted: Bool {
+        didSet {
+            backgroundColor = CustomColor.violetDark
+        }
     }
 }

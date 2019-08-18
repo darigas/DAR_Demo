@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NewsViewController: ViewController {
+class NewsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

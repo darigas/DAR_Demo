@@ -15,46 +15,54 @@ class SignInViewController: UIViewController {
     
     let emailTextField: UITextField = {
         let emailTextField = UITextField()
-        emailTextField.placeholder = "Email"
-        emailTextField.borderStyle = .roundedRect
+        emailTextField.placeholder = "Электронный адрес"
         emailTextField.autocapitalizationType = .none
+        emailTextField.borderStyle = .roundedRect
+        emailTextField.font = CustomFont.marion
+        emailTextField.textColor = CustomColor.violetDark
         return emailTextField
     }()
     
     let passwordTextField: UITextField = {
         let passwordTextField = UITextField()
-        passwordTextField.placeholder = "Password"
-        passwordTextField.borderStyle = .roundedRect
+        passwordTextField.placeholder = "Пароль"
         passwordTextField.isSecureTextEntry = true
+        passwordTextField.borderStyle = .roundedRect
+        passwordTextField.font = CustomFont.marion
+        passwordTextField.textColor = CustomColor.violetDark
         return passwordTextField
     }()
     
     let signInButton: CommonButton = {
         let signInButton = CommonButton()
-        signInButton.titleText = "Sign In"
+        signInButton.titleText = "Войти"
         return signInButton
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .yellow
+        view.backgroundColor = CustomColor.sunset
         self.navigationController?.isNavigationBarHidden = false
+        self.navigationController?.navigationBar.tintColor = CustomColor.violetLight
+        
+        let width = UIScreen.main.bounds.width
+        let height = UIScreen.main.bounds.height
         
         view.addSubview(emailTextField)
         emailTextField.easy.layout(
-            Width(400),
-            Height(40),
             CenterX(),
+            Width(width - width / 8),
+            Height(height / 24),
             Top(16).to(topLayoutGuide)
         )
         emailTextField.delegate = self
         
         view.addSubview(passwordTextField)
         passwordTextField.easy.layout(
-            Width(400),
-            Height(40),
             CenterX(),
+            Width(width - width / 8),
+            Height(height / 24),
             Top(16).to(emailTextField)
         )
         passwordTextField.delegate = self
@@ -62,7 +70,8 @@ class SignInViewController: UIViewController {
         view.addSubview(signInButton)
         signInButton.easy.layout(
             CenterX(),
-            Width(150),
+            Width(width - width / 8),
+            Height(height / 24),
             Top(16).to(passwordTextField)
         )
         signInButton.addTarget(self, action: #selector(signIn), for: .touchUpInside)
@@ -70,7 +79,7 @@ class SignInViewController: UIViewController {
     
     @objc func signIn(){
         if (emailTextField.text!.isEmpty || passwordTextField.text!.isEmpty){
-            self.showAlert(message: "Filling out all fields are obligatory!")
+            self.showAlert(message: "Необходимо заполнить все поля!")
         }
         else {
             Auth.auth().signIn(withEmail: emailTextField.text!, password: passwordTextField.text!) { (user, error) in
@@ -80,9 +89,10 @@ class SignInViewController: UIViewController {
                         let user_email = user.user.email
                         print(user_email!)
                     }
-                    let controller = BottomNavigationController()
-//                    self.present(controller, animated: true)
-                    self.navigationController?.pushViewController(controller, animated: true)
+                    UserDefaults.standard.set(true, forKey: "loggedIn")
+                    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                    appDelegate.window?.rootViewController = TabBarController()
+                    appDelegate.window?.tintColor = CustomColor.violetLight
                 }
                 else {
                     if let errorCode = AuthErrorCode(rawValue: error!._code){
@@ -102,7 +112,11 @@ class SignInViewController: UIViewController {
     
     func showAlert(message: String){
         let alert = UIAlertController(title: message, message: "", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        alert.view.tintColor = CustomColor.violetDark
+        alert.setValue(NSAttributedString(string: alert.title!, attributes: [NSAttributedString.Key.font : CustomFont.marion, NSAttributedString.Key.foregroundColor : CustomColor.violetDark]), forKey: "attributedTitle")
+        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+        action.setValue(CustomColor.violetDark, forKey: "titleTextColor")
+        alert.addAction(action)
         self.present(alert, animated: true)
     }
 }

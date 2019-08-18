@@ -10,20 +10,23 @@
 		46D000B41A2861008EFD610A /* Pods_DAR_DemoUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D1752CA77E10902AE3715F1 /* Pods_DAR_DemoUITests.framework */; };
 		67F21232BD75EEB51F3F00FA /* Pods_DAR_Demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B258C5AEDEDE25F45EB5BEF2 /* Pods_DAR_Demo.framework */; };
 		7015029222D67F4700A9F7D0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7015029122D67F4700A9F7D0 /* AppDelegate.swift */; };
-		7015029422D67F4700A9F7D0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7015029322D67F4700A9F7D0 /* ViewController.swift */; };
+		7015029422D67F4700A9F7D0 /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7015029322D67F4700A9F7D0 /* AuthenticationViewController.swift */; };
 		7015029922D67F4900A9F7D0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7015029822D67F4900A9F7D0 /* Assets.xcassets */; };
 		7015029C22D67F4900A9F7D0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7015029A22D67F4900A9F7D0 /* LaunchScreen.storyboard */; };
 		701502A722D67F4A00A9F7D0 /* DAR_DemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701502A622D67F4A00A9F7D0 /* DAR_DemoUITests.swift */; };
 		701502B222D6809D00A9F7D0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 701502B122D6809D00A9F7D0 /* GoogleService-Info.plist */; };
 		7029B10A22DB1BDB003929EA /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7029B10922DB1BDB003929EA /* SignUpViewController.swift */; };
 		7029B10E22DB3143003929EA /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7029B10D22DB3143003929EA /* SignInViewController.swift */; };
+		705DB39E23089286004B3B21 /* CommonLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 705DB39D23089286004B3B21 /* CommonLabel.swift */; };
+		705DB3A423096692004B3B21 /* CustomColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 705DB3A323096692004B3B21 /* CustomColor.swift */; };
+		705DB3A623096977004B3B21 /* CustomFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 705DB3A523096977004B3B21 /* CustomFont.swift */; };
 		709BAF65230180FB00473429 /* CinemasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709BAF64230180FB00473429 /* CinemasViewController.swift */; };
 		709BAF692301818000473429 /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709BAF682301818000473429 /* NewsViewController.swift */; };
 		709BAF6B230181AB00473429 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709BAF6A230181AB00473429 /* ProfileViewController.swift */; };
 		709BAF6F2301853700473429 /* CommonButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709BAF6E2301853700473429 /* CommonButton.swift */; };
 		70C7089E22FBF22F00393DAB /* MoviesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C7089D22FBF22F00393DAB /* MoviesViewController.swift */; };
 		70C708A022FBF30400393DAB /* MoviesRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C7089F22FBF30400393DAB /* MoviesRow.swift */; };
-		70C708A222FBF62600393DAB /* BottomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C708A122FBF62600393DAB /* BottomNavigationController.swift */; };
+		70C708A222FBF62600393DAB /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C708A122FBF62600393DAB /* TabBarController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,7 +45,7 @@
 		64D6BD6E9C951AA757006F0F /* Pods-DAR_DemoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DAR_DemoUITests.release.xcconfig"; path = "Target Support Files/Pods-DAR_DemoUITests/Pods-DAR_DemoUITests.release.xcconfig"; sourceTree = "<group>"; };
 		7015028E22D67F4600A9F7D0 /* DAR_Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DAR_Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7015029122D67F4700A9F7D0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		7015029322D67F4700A9F7D0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		7015029322D67F4700A9F7D0 /* AuthenticationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewController.swift; sourceTree = "<group>"; };
 		7015029822D67F4900A9F7D0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7015029B22D67F4900A9F7D0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7015029D22D67F4900A9F7D0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -52,13 +55,16 @@
 		701502B122D6809D00A9F7D0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7029B10922DB1BDB003929EA /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		7029B10D22DB3143003929EA /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		705DB39D23089286004B3B21 /* CommonLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonLabel.swift; sourceTree = "<group>"; };
+		705DB3A323096692004B3B21 /* CustomColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomColor.swift; sourceTree = "<group>"; };
+		705DB3A523096977004B3B21 /* CustomFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFont.swift; sourceTree = "<group>"; };
 		709BAF64230180FB00473429 /* CinemasViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CinemasViewController.swift; sourceTree = "<group>"; };
 		709BAF682301818000473429 /* NewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
 		709BAF6A230181AB00473429 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		709BAF6E2301853700473429 /* CommonButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonButton.swift; sourceTree = "<group>"; };
 		70C7089D22FBF22F00393DAB /* MoviesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesViewController.swift; sourceTree = "<group>"; };
 		70C7089F22FBF30400393DAB /* MoviesRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesRow.swift; sourceTree = "<group>"; };
-		70C708A122FBF62600393DAB /* BottomNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomNavigationController.swift; sourceTree = "<group>"; };
+		70C708A122FBF62600393DAB /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		B258C5AEDEDE25F45EB5BEF2 /* Pods_DAR_Demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DAR_Demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1AEFFC6E20A9740290FF809 /* Pods-DAR_Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DAR_Demo.debug.xcconfig"; path = "Target Support Files/Pods-DAR_Demo/Pods-DAR_Demo.debug.xcconfig"; sourceTree = "<group>"; };
 		D94C9CFD88DCB63AB0ADCB4A /* Pods-DAR_Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DAR_Demo.release.xcconfig"; path = "Target Support Files/Pods-DAR_Demo/Pods-DAR_Demo.release.xcconfig"; sourceTree = "<group>"; };
@@ -142,7 +148,7 @@
 			children = (
 				709BAF672301811300473429 /* TabBarNavigationControllers */,
 				709BAF662301810400473429 /* Authentication */,
-				7015029322D67F4700A9F7D0 /* ViewController.swift */,
+				7015029322D67F4700A9F7D0 /* AuthenticationViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -152,6 +158,9 @@
 			children = (
 				70C7089F22FBF30400393DAB /* MoviesRow.swift */,
 				709BAF6E2301853700473429 /* CommonButton.swift */,
+				705DB39D23089286004B3B21 /* CommonLabel.swift */,
+				705DB3A323096692004B3B21 /* CustomColor.swift */,
+				705DB3A523096977004B3B21 /* CustomFont.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -175,7 +184,7 @@
 		709BAF672301811300473429 /* TabBarNavigationControllers */ = {
 			isa = PBXGroup;
 			children = (
-				70C708A122FBF62600393DAB /* BottomNavigationController.swift */,
+				70C708A122FBF62600393DAB /* TabBarController.swift */,
 				70C7089D22FBF22F00393DAB /* MoviesViewController.swift */,
 				709BAF64230180FB00473429 /* CinemasViewController.swift */,
 				709BAF682301818000473429 /* NewsViewController.swift */,
@@ -409,17 +418,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7015029422D67F4700A9F7D0 /* ViewController.swift in Sources */,
+				7015029422D67F4700A9F7D0 /* AuthenticationViewController.swift in Sources */,
 				7029B10A22DB1BDB003929EA /* SignUpViewController.swift in Sources */,
 				7029B10E22DB3143003929EA /* SignInViewController.swift in Sources */,
 				709BAF692301818000473429 /* NewsViewController.swift in Sources */,
 				709BAF6B230181AB00473429 /* ProfileViewController.swift in Sources */,
+				705DB39E23089286004B3B21 /* CommonLabel.swift in Sources */,
 				70C708A022FBF30400393DAB /* MoviesRow.swift in Sources */,
+				705DB3A623096977004B3B21 /* CustomFont.swift in Sources */,
 				70C7089E22FBF22F00393DAB /* MoviesViewController.swift in Sources */,
+				705DB3A423096692004B3B21 /* CustomColor.swift in Sources */,
 				709BAF65230180FB00473429 /* CinemasViewController.swift in Sources */,
 				7015029222D67F4700A9F7D0 /* AppDelegate.swift in Sources */,
 				709BAF6F2301853700473429 /* CommonButton.swift in Sources */,
-				70C708A222FBF62600393DAB /* BottomNavigationController.swift in Sources */,
+				70C708A222FBF62600393DAB /* TabBarController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

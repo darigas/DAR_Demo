@@ -32,7 +32,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Dar Demo App would like to have access to your photo library to set profile image.</string>
+	<string>MovieMate хочет получить доступ к вашим фото.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

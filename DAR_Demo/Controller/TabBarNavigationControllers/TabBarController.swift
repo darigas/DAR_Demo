@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BottomNavigationController: UITabBarController {
+class TabBarController: UITabBarController {
 
     let moviesItem: UITabBarItem = {
         let moviesItem = UITabBarItem()
@@ -42,8 +42,7 @@ class BottomNavigationController: UITabBarController {
         super.viewDidLoad()
         
         view.backgroundColor = .white
-        self.navigationController?.isNavigationBarHidden = true
-        
+
         let moviesController = MoviesViewController()
         moviesController.tabBarItem = moviesItem
         

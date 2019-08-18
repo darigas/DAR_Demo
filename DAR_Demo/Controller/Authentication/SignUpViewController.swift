@@ -20,39 +20,47 @@ class SignUpViewController: UIViewController {
     
     let emailTextField: UITextField = {
         let emailTextField = UITextField()
-        emailTextField.placeholder = "Email"
-        emailTextField.borderStyle = .roundedRect
+        emailTextField.placeholder = "Электронный адрес"
         emailTextField.autocapitalizationType = .none
+        emailTextField.borderStyle = .roundedRect
+        emailTextField.font = CustomFont.marion
+        emailTextField.textColor = CustomColor.violetDark
         return emailTextField
     }()
     
     let passwordTextField: UITextField = {
         let passwordTextField = UITextField()
-        passwordTextField.placeholder = "Password"
-        passwordTextField.borderStyle = .roundedRect
+        passwordTextField.placeholder = "Пароль"
         passwordTextField.isSecureTextEntry = true
+        passwordTextField.borderStyle = .roundedRect
+        passwordTextField.font = CustomFont.marion
+        passwordTextField.textColor = CustomColor.violetDark
         return passwordTextField
-    }()
-    
-    let signUpButton: CommonButton = {
-        let signUpButton = CommonButton()
-        signUpButton.titleText = "Sign Up"
-        return signUpButton
     }()
     
     let usernameTextField: UITextField = {
         let usernameTextField = UITextField()
-        usernameTextField.placeholder = "Username"
+        usernameTextField.placeholder = "Имя пользователя"
         usernameTextField.borderStyle = .roundedRect
+        usernameTextField.font = CustomFont.marion
+        usernameTextField.textColor = CustomColor.violetDark
         return usernameTextField
+    }()
+    
+    let signUpButton: CommonButton = {
+        let signUpButton = CommonButton()
+        signUpButton.titleText = "Зарегестрироваться"
+        return signUpButton
     }()
     
     let profileImage: UIImageView = {
         let profileImage = UIImageView()
         profileImage.clipsToBounds = true
-        profileImage.layer.cornerRadius = 50
-        profileImage.image = UIImage(named: "profile")
-        profileImage.backgroundColor = UIColor.lightGray
+        profileImage.layer.cornerRadius = UIScreen.main.bounds.width / 8
+        profileImage.image = UIImage(named: "profile")?.withRenderingMode(.alwaysTemplate)
+        profileImage.contentMode = UIView.ContentMode.center
+        profileImage.tintColor = CustomColor.violetDark
+        profileImage.backgroundColor = .white
         return profileImage
     }()
     
@@ -60,7 +68,8 @@ class SignUpViewController: UIViewController {
         super.viewDidLoad()
         
         self.navigationController?.isNavigationBarHidden = false
-        view.backgroundColor = .yellow
+        self.navigationController?.navigationBar.tintColor = CustomColor.violetLight
+        view.backgroundColor = CustomColor.sunset
         
 //        func checkPermission() {
 //            let photoAuthorizationStatus = PHPhotoLibrary.authorizationStatus()
@@ -83,37 +92,40 @@ class SignUpViewController: UIViewController {
 //            }
 //        }
         
+        let width = UIScreen.main.bounds.width
+        let height = UIScreen.main.bounds.height
+        
         view.addSubview(profileImage)
         profileImage.easy.layout(
             CenterX(),
-            Width(100),
-            Height(100),
+            Width(width / 4),
+            Height(width / 4),
             Top(16).to(topLayoutGuide)
         )
         
         view.addSubview(emailTextField)
         emailTextField.easy.layout(
-            Width(400),
-            Height(40),
             CenterX(),
+            Width(width - width / 8),
+            Height(height / 24),
             Top(16).to(profileImage)
         )
         emailTextField.delegate = self
         
         view.addSubview(passwordTextField)
         passwordTextField.easy.layout(
-            Width(400),
-            Height(40),
             CenterX(),
+            Width(width - width / 8),
+            Height(height / 24),
             Top(16).to(emailTextField)
         )
         passwordTextField.delegate = self
         
         view.addSubview(usernameTextField)
         usernameTextField.easy.layout(
-            Width(400),
-            Height(40),
             CenterX(),
+            Width(width - width / 8),
+            Height(height / 24),
             Top(16).to(passwordTextField)
         )
         usernameTextField.delegate = self
@@ -121,7 +133,8 @@ class SignUpViewController: UIViewController {
         view.addSubview(signUpButton)
         signUpButton.easy.layout(
             CenterX(),
-            Width(150),
+            Width(width - width / 8),
+            Height(height / 24),
             Top(16).to(usernameTextField)
         )
         
@@ -150,7 +163,7 @@ class SignUpViewController: UIViewController {
     
     @objc func signUp(){
         if (emailTextField.text!.isEmpty || passwordTextField.text!.isEmpty || usernameTextField.text!.isEmpty){
-            self.showAlert(message: "Filling out all fields are obligatory!")
+            self.showAlert(message: "Необходимо заполнить все поля!")
             return
         }
         else {
@@ -178,20 +191,36 @@ class SignUpViewController: UIViewController {
                             }
                         })
                     }
+                    else {
+                        let database = Database.database().reference()
+                        let userReference = database.child("users")
+                        let newUserReference = userReference.child(userID!)
+                        newUserReference.setValue(["email": self.emailTextField.text!, "username": self.usernameTextField.text!, "profileImageURL":  nil])
+                    }
                     UserDefaults.standard.set(true, forKey: "loggedIn")
-//                    let controller = BottomNavigationController()
-//                    self.navigationController?.pushViewController(controller, animated: true)
+                    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                    appDelegate.window?.rootViewController = TabBarController()
+                    appDelegate.window?.tintColor = CustomColor.violetLight
                 }
                 else {
                     self.showAlert(message: (error!.localizedDescription))
                 }
+                Auth.auth().currentUser?.sendEmailVerification(completion: { (error) in
+                    if error != nil {
+                        print(error?.localizedDescription)
+                    }
+                })
             }
         }
     }
     
     func showAlert(message: String){
         let alert = UIAlertController(title: message, message: "", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        alert.view.tintColor = CustomColor.violetDark
+        alert.setValue(NSAttributedString(string: alert.title!, attributes: [NSAttributedString.Key.font : CustomFont.marion, NSAttributedString.Key.foregroundColor : CustomColor.violetDark]), forKey: "attributedTitle")
+        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+        action.setValue(CustomColor.violetDark, forKey: "titleTextColor")
+        alert.addAction(action)
         self.present(alert, animated: true)
     }
 }

@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Dar Demo App would like to have access to your photo library to set profile image.</string>
+	<string>MovieMate хочет получить доступ к вашим фото.</string>
 	<key>CLIENT_ID</key>
 	<string>819717065796-ie3u5g4p5oseondkd9dhv0e73mq7cmor.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
