@@ -12,6 +12,7 @@ import FirebaseAuth
 import GoogleSignIn
 import FirebaseDatabase
 import FirebaseStorage
+import SVProgressHUD
 
 class FirebaseService {
     static func signIn_(withEmail email: String, password: String, success: @escaping() -> Void, failure: @escaping(Error) -> Void){
@@ -38,30 +39,37 @@ class FirebaseService {
                 guard let imageData = chosenImage.jpegData(compressionQuality: 0.1) else {
                     return
                 }
-                
-                storage.putData(imageData, metadata: nil, completion: { (metadata, error) in
-                    if error != nil {
-                        failure(error!)
-                        return
-                    }
-                    storage.downloadURL(completion: { (url, error) in
-                        if let profileImageURL = url?.absoluteString {
-                            let database = Database.database().reference()
-                            let userReference = database.child("users")
-                            let newUserReference = userReference.child(userID!)
-                            newUserReference.setValue(["email": email, "username": username, "profileImageURL": profileImageURL])
-                        }
-                    })
+                StorageService.putProfileImage(withEmail: email, username: username, userID: userID!, data: imageData, success: {
+                    success()
+                }, failure: { (error) in
+                    SVProgressHUD.showError(withStatus: error.localizedDescription)
                 })
+//                storage.putData(imageData, metadata: nil, completion: { (metadata, error) in
+//                    if error != nil {
+//                        failure(error!)
+//                        return
+//                    }
+//                    storage.downloadURL(completion: { (url, error) in
+//                        if let profileImageURL = url?.absoluteString {
+//                            let database = Database.database().reference()
+//                            let userReference = database.child("users")
+//                            let newUserReference = userReference.child(userID!)
+//                            newUserReference.setValue(["email": email, "username": username, "profileImageURL": profileImageURL])
+//                        }
+//                    })
+//                })
             }
             else {
-                let database = Database.database().reference()
-                let userReference = database.child("users")
-                let newUserReference = userReference.child(userID!)
-                newUserReference.setValue(["email": email, "username": username, "profileImageURL":  nil])
+                ReferenceService.newUserReference(withEmail: email, username: username, userID: userID!, success: {
+                    success()
+                })
+//                let database = Database.database().reference()
+//                let userReference = database.child("users")
+//                let newUserReference = userReference.child(userID!)
+//                newUserReference.setValue(["email": email, "username": username, "profileImageURL":  nil])
             }
         }
-        success()
+//        success()
     }
     
     static func signOut(success: @escaping() -> Void, failure: @escaping(Error) -> Void){
@@ -99,5 +107,13 @@ class FirebaseService {
                 failure(error!)
             }
         })
+    }
+    
+    static var currentUser: User {
+        return Auth.auth().currentUser!
+    }
+    
+    static var currentUserID: String {
+        return Auth.auth().currentUser!.uid
     }
 }

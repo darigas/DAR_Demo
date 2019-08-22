@@ -118,6 +118,7 @@ class AuthenticationViewController: UIViewController, GIDSignInDelegate, GIDSign
             SVProgressHUD.showError(withStatus: error.localizedDescription)
         }
         else{
+            SVProgressHUD.show()
             let fullName = user.profile.name
             let email = user.profile.email
             
@@ -127,26 +128,33 @@ class AuthenticationViewController: UIViewController, GIDSignInDelegate, GIDSign
             
             Auth.auth().signInAndRetrieveData(with: credentials) { (user, error) in
                 if error != nil {
-                    print(error?.localizedDescription ?? "The app is facing some troubles.")
                     SVProgressHUD.showError(withStatus: error?.localizedDescription)
                 }
                 let userID = user?.user.uid
-                let database = Database.database().reference()
-                let userReference = database.child("users")
-                userReference.observeSingleEvent(of: .value, with: { (snapshot) in
-                    if snapshot.hasChild(userID!) {
-                        print("User logged in with Google Sign-In")
-                    }
-                    else {
-                        let newUserReference = userReference.child(userID!)
-                        newUserReference.setValue(["email": email, "username": fullName, "profileImageURL": nil])
-                    }
+                StorageService.createReferenceGoogle(withEmail: email!, username: fullName!, userID: userID!, success: {
+                    SVProgressHUD.dismiss()
+                    UserDefaults.standard.set(true, forKey: "loggedIn")
+                    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                    appDelegate.window?.rootViewController = TabBarController()
+                    appDelegate.window?.tintColor = CustomColor.violetLight
                 })
+//
+//                let database = Database.database().reference()
+//                let userReference = database.child("users")
+//                userReference.observeSingleEvent(of: .value, with: { (snapshot) in
+//                    if snapshot.hasChild(userID!) {
+//                        print("User logged in with Google Sign-In")
+//                    }
+//                    else {
+//                        let newUserReference = userReference.child(userID!)
+//                        newUserReference.setValue(["email": email, "username": fullName, "profileImageURL": nil])
+//                    }
+//                })
             }
-            UserDefaults.standard.set(true, forKey: "loggedIn")
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            appDelegate.window?.rootViewController = TabBarController()
-            appDelegate.window?.tintColor = CustomColor.violetLight
+//            UserDefaults.standard.set(true, forKey: "loggedIn")
+//            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+//            appDelegate.window?.rootViewController = TabBarController()
+//            appDelegate.window?.tintColor = CustomColor.violetLight
         }
     }
     

@@ -22,6 +22,8 @@
 		705DB3A623096977004B3B21 /* CustomFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 705DB3A523096977004B3B21 /* CustomFont.swift */; };
 		707E5BA4230EE6ED00A6001B /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707E5BA3230EE6ED00A6001B /* FirebaseService.swift */; };
 		707E5BA8230F103400A6001B /* ResetPasswordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707E5BA7230F103400A6001B /* ResetPasswordController.swift */; };
+		707E5BAA230F174200A6001B /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707E5BA9230F174200A6001B /* StorageService.swift */; };
+		707E5BAC230F230E00A6001B /* ReferenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707E5BAB230F230E00A6001B /* ReferenceService.swift */; };
 		709BAF65230180FB00473429 /* CinemasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709BAF64230180FB00473429 /* CinemasViewController.swift */; };
 		709BAF692301818000473429 /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709BAF682301818000473429 /* NewsViewController.swift */; };
 		709BAF6B230181AB00473429 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709BAF6A230181AB00473429 /* ProfileViewController.swift */; };
@@ -62,6 +64,8 @@
 		705DB3A523096977004B3B21 /* CustomFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFont.swift; sourceTree = "<group>"; };
 		707E5BA3230EE6ED00A6001B /* FirebaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseService.swift; sourceTree = "<group>"; };
 		707E5BA7230F103400A6001B /* ResetPasswordController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordController.swift; sourceTree = "<group>"; };
+		707E5BA9230F174200A6001B /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
+		707E5BAB230F230E00A6001B /* ReferenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferenceService.swift; sourceTree = "<group>"; };
 		709BAF64230180FB00473429 /* CinemasViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CinemasViewController.swift; sourceTree = "<group>"; };
 		709BAF682301818000473429 /* NewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
 		709BAF6A230181AB00473429 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -181,6 +185,8 @@
 			isa = PBXGroup;
 			children = (
 				707E5BA3230EE6ED00A6001B /* FirebaseService.swift */,
+				707E5BA9230F174200A6001B /* StorageService.swift */,
+				707E5BAB230F230E00A6001B /* ReferenceService.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -437,6 +443,7 @@
 				7015029422D67F4700A9F7D0 /* AuthenticationViewController.swift in Sources */,
 				7029B10A22DB1BDB003929EA /* SignUpViewController.swift in Sources */,
 				707E5BA8230F103400A6001B /* ResetPasswordController.swift in Sources */,
+				707E5BAC230F230E00A6001B /* ReferenceService.swift in Sources */,
 				707E5BA4230EE6ED00A6001B /* FirebaseService.swift in Sources */,
 				7029B10E22DB3143003929EA /* SignInViewController.swift in Sources */,
 				709BAF692301818000473429 /* NewsViewController.swift in Sources */,
@@ -446,6 +453,7 @@
 				705DB3A623096977004B3B21 /* CustomFont.swift in Sources */,
 				70C7089E22FBF22F00393DAB /* MoviesViewController.swift in Sources */,
 				705DB3A423096692004B3B21 /* CustomColor.swift in Sources */,
+				707E5BAA230F174200A6001B /* StorageService.swift in Sources */,
 				709BAF65230180FB00473429 /* CinemasViewController.swift in Sources */,
 				7015029222D67F4700A9F7D0 /* AppDelegate.swift in Sources */,
 				709BAF6F2301853700473429 /* CommonButton.swift in Sources */,

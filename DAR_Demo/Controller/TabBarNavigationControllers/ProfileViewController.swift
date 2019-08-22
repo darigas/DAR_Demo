@@ -98,26 +98,19 @@ class ProfileViewController: UIViewController {
         
         DispatchQueue.global(qos: .utility).async {
             // SEND REQUEST HERE
-            reference.child("users").child(userID!).observeSingleEvent(of: .value) { (snapshot) in
-                let value = snapshot.value as! NSDictionary
-                let username = value["username"] as! String
+            StorageService.getProfileInfo(success: { (username, profileImageURL) in
                 self.currentUsername = username
-                let email = value["email"] as! String
-                self.currentEmail = email
-                if value["profileImageURL"] != nil {
-                    let photoURL = value["profileImageURL"] as! String
-                    self.currentProfileImageURL = photoURL
+                if profileImageURL != nil {
+                    self.currentProfileImageURL = profileImageURL
                     DispatchQueue.main.async { [weak self] in
                         // UPDATE UI HERE
-                        if self!.currentProfileImageURL != nil {
-                            self!.usernameLabel.text = self!.currentUsername
-                            let url = NSURL(string: self!.currentProfileImageURL!)
-                            if let data = try? Data(contentsOf: url as! URL) {
-                                let image = UIImage(data: data)
-                                self!.profileImage.contentMode = UIView.ContentMode.scaleToFill
-                                self?.profileImage.image = image
-                                SVProgressHUD.dismiss()
-                            }
+                        self!.usernameLabel.text = self!.currentUsername
+                        let url = NSURL(string: self!.currentProfileImageURL!)
+                        if let data = try? Data(contentsOf: url as! URL) {
+                            let image = UIImage(data: data)
+                            self!.profileImage.contentMode = UIView.ContentMode.scaleToFill
+                            self?.profileImage.image = image
+                            SVProgressHUD.dismiss()
                         }
                     }
                 }
@@ -125,7 +118,58 @@ class ProfileViewController: UIViewController {
                     SVProgressHUD.dismiss()
                     self!.usernameLabel.text = username
                 }
-            }
+            }, failure: { (error) in
+                SVProgressHUD.showError(withStatus: error.localizedDescription)
+            })
+//            StorageService.getProfileInfo(success: { (username, profileImageURL) in
+//                self.currentUsername = username
+//                if profileImageURL != nil {
+//                    self.currentProfileImageURL = profileImageURL
+//                    DispatchQueue.main.async { [weak self] in
+//                        // UPDATE UI HERE
+//                        self!.usernameLabel.text = self!.currentUsername
+//                        let url = NSURL(string: self!.currentProfileImageURL!)
+//                        if let data = try? Data(contentsOf: url as! URL) {
+//                            let image = UIImage(data: data)
+//                            self!.profileImage.contentMode = UIView.ContentMode.scaleToFill
+//                            self?.profileImage.image = image
+//                            SVProgressHUD.dismiss()
+//                        }
+//                    }
+//                }
+//                DispatchQueue.main.async { [weak self] in
+//                    SVProgressHUD.dismiss()
+//                    self!.usernameLabel.text = username
+//                }
+//            }, failure: <#(Error) -> Void#>)
+//            reference.child("users").child(userID!).observeSingleEvent(of: .value) { (snapshot) in
+//                let value = snapshot.value as! NSDictionary
+//                let username = value["username"] as! String
+//                self.currentUsername = username
+//                let email = value["email"] as! String
+//                self.currentEmail = email
+//                if value["profileImageURL"] != nil {
+//                    let photoURL = value["profileImageURL"] as! String
+//                    self.currentProfileImageURL = photoURL
+//                    DispatchQueue.main.async { [weak self] in
+//                        // UPDATE UI HERE
+//                        if self!.currentProfileImageURL != nil {
+//                            self!.usernameLabel.text = self!.currentUsername
+//                            let url = NSURL(string: self!.currentProfileImageURL!)
+//                            if let data = try? Data(contentsOf: url as! URL) {
+//                                let image = UIImage(data: data)
+//                                self!.profileImage.contentMode = UIView.ContentMode.scaleToFill
+//                                self?.profileImage.image = image
+//                                SVProgressHUD.dismiss()
+//                            }
+//                        }
+//                    }
+//                }
+//                DispatchQueue.main.async { [weak self] in
+//                    SVProgressHUD.dismiss()
+//                    self!.usernameLabel.text = username
+//                }
+//            }
         }
         
         
