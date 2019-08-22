@@ -119,8 +119,11 @@ class ProfileViewController: UIViewController {
                                 SVProgressHUD.dismiss()
                             }
                         }
-                        self!.usernameLabel.text = self!.currentUsername
                     }
+                }
+                DispatchQueue.main.async { [weak self] in
+                    SVProgressHUD.dismiss()
+                    self!.usernameLabel.text = username
                 }
             }
         }
@@ -132,16 +135,12 @@ class ProfileViewController: UIViewController {
     }
     
     @objc func signOut(){
-        let firebaseAuth = Auth.auth()
-        do {
-            try firebaseAuth.signOut()
-            GIDSignIn.sharedInstance()?.signOut()
+        FirebaseService.signOut(success: {
             UserDefaults.standard.set(false, forKey: "loggedIn")
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
             appDelegate.window?.rootViewController = UINavigationController(rootViewController: AuthenticationViewController())
-        }
-        catch let signOutError as NSError {
-            self.showAlert(message: signOutError.localizedDescription)
+        }) { (error) in
+            SVProgressHUD.showError(withStatus: error.localizedDescription)
         }
     }
     
@@ -168,11 +167,10 @@ class ProfileViewController: UIViewController {
     }
     
     @objc func resetPassword() {
-        Auth.auth().sendPasswordReset(withEmail: (Auth.auth().currentUser?.email)!) { (error) in
-            if error != nil {
-                print(error?.localizedDescription)
-            }
-            self.showAlert(message: "Link to reset the password was sent to your email adresss.")
+        FirebaseService.resetPassword(success: {
+            self.showAlert(message: "Ссылка на сброс пароля была отправлена на ваш электронный адрес.")
+        }) { (error) in
+            SVProgressHUD.showError(withStatus: error.localizedDescription)
         }
     }
 }

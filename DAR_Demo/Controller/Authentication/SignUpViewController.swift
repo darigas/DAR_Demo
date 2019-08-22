@@ -13,6 +13,7 @@ import FirebaseAuth
 import FirebaseDatabase
 import FirebaseStorage
 import Photos
+import SVProgressHUD
 
 class SignUpViewController: UIViewController {
     
@@ -71,27 +72,6 @@ class SignUpViewController: UIViewController {
         self.navigationController?.navigationBar.tintColor = CustomColor.violetLight
         view.backgroundColor = CustomColor.sunset
         
-//        func checkPermission() {
-//            let photoAuthorizationStatus = PHPhotoLibrary.authorizationStatus()
-//            switch photoAuthorizationStatus {
-//            case .authorized:
-//                print("Access is granted by user.")
-//            case .notDetermined:
-//                PHPhotoLibrary.requestAuthorization { (newStatus) in
-//                    print("status is \(newStatus)")
-//                    if newStatus == PHAuthorizationStatus.authorized {
-//                        print("Authorized.")
-//                    }
-//                }
-//            case .restricted:
-//                print("User does not have access to photo album.")
-//            case .denied:
-//                print("User has denied the permission")
-//            default:
-//                print("Unknown problem.")
-//            }
-//        }
-        
         let width = UIScreen.main.bounds.width
         let height = UIScreen.main.bounds.height
         
@@ -148,7 +128,7 @@ class SignUpViewController: UIViewController {
     @objc func handleSelectImageView() {
         if PHPhotoLibrary.authorizationStatus() != PHAuthorizationStatus.authorized {
             PHPhotoLibrary.requestAuthorization { (status: PHAuthorizationStatus) in
-                print("Requesting authorization")
+                print("Requesting authorization.")
             }
         }
         else {
@@ -157,7 +137,6 @@ class SignUpViewController: UIViewController {
             pickerController.allowsEditing = true
             pickerController.sourceType = .photoLibrary
             self.present(pickerController, animated: true)
-
         }
     }
     
@@ -167,49 +146,18 @@ class SignUpViewController: UIViewController {
             return
         }
         else {
-            Auth.auth().createUser(withEmail: emailTextField.text!, password: passwordTextField.text!) { (authResult, error) in
-                if (error == nil){
-                    
-                    let userID = authResult?.user.uid
-                    
-                    let storage = Storage.storage().reference().child("profile_image").child(userID!)
-                    if let profileImage = self.chosenImage {
-                        let imageData = profileImage.jpegData(compressionQuality: 0.1 )
-                        storage.putData(imageData!, metadata: nil, completion: { (_, error) in
-                            if error != nil {
-                                return
-                            }
-                            else {
-                                storage.downloadURL(completion: { (url, error) in
-                                    if let profileImageURL = url?.absoluteString {
-                                        let database = Database.database().reference()
-                                        let userReference = database.child("users")
-                                        let newUserReference = userReference.child(userID!)
-                                        newUserReference.setValue(["email": self.emailTextField.text!, "username": self.usernameTextField.text!, "profileImageURL": profileImageURL])
-                                    }
-                                })
-                            }
-                        })
-                    }
-                    else {
-                        let database = Database.database().reference()
-                        let userReference = database.child("users")
-                        let newUserReference = userReference.child(userID!)
-                        newUserReference.setValue(["email": self.emailTextField.text!, "username": self.usernameTextField.text!, "profileImageURL":  nil])
-                    }
-                    UserDefaults.standard.set(true, forKey: "loggedIn")
-                    let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                    appDelegate.window?.rootViewController = TabBarController()
-                    appDelegate.window?.tintColor = CustomColor.violetLight
-                }
-                else {
-                    self.showAlert(message: (error!.localizedDescription))
-                }
-                Auth.auth().currentUser?.sendEmailVerification(completion: { (error) in
-                    if error != nil {
-                        print(error?.localizedDescription)
-                    }
+            SVProgressHUD.show()
+            FirebaseService.signUp(withEmail: emailTextField.text!, password: passwordTextField.text!, username: usernameTextField.text!, image: self.chosenImage, success: {
+                SVProgressHUD.dismiss()
+                FirebaseService.sendEmailVerification(failure: { (error) in
+                    SVProgressHUD.showError(withStatus: error.localizedDescription)
                 })
+                UserDefaults.standard.set(true, forKey: "loggedIn")
+                let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                appDelegate.window?.rootViewController = TabBarController()
+                appDelegate.window?.tintColor = CustomColor.violetLight
+            }) { (error) in
+                SVProgressHUD.showError(withStatus: error.localizedDescription)
             }
         }
     }

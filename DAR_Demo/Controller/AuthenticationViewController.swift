@@ -13,12 +13,12 @@ import FirebaseAuth
 import GoogleSignIn
 import FirebaseDatabase
 import FirebaseStorage
+import SVProgressHUD
 
 class AuthenticationViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDelegate {
     
     let loginLabel: CommonLabel = {
         let loginLabel = CommonLabel()
-        loginLabel.textColor = .black
         loginLabel.text = "Добро пожаловать в MovieMate!"
         return loginLabel
     }()
@@ -115,12 +115,10 @@ class AuthenticationViewController: UIViewController, GIDSignInDelegate, GIDSign
     
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
         if (error != nil){
-            print(error.localizedDescription)
+            SVProgressHUD.showError(withStatus: error.localizedDescription)
         }
         else{
             let fullName = user.profile.name
-            let givenName = user.profile.givenName
-            let familyName = user.profile.familyName
             let email = user.profile.email
             
             guard let idToken = user.authentication.idToken else {return}
@@ -130,6 +128,7 @@ class AuthenticationViewController: UIViewController, GIDSignInDelegate, GIDSign
             Auth.auth().signInAndRetrieveData(with: credentials) { (user, error) in
                 if error != nil {
                     print(error?.localizedDescription ?? "The app is facing some troubles.")
+                    SVProgressHUD.showError(withStatus: error?.localizedDescription)
                 }
                 let userID = user?.user.uid
                 let database = Database.database().reference()
@@ -139,13 +138,11 @@ class AuthenticationViewController: UIViewController, GIDSignInDelegate, GIDSign
                         print("User logged in with Google Sign-In")
                     }
                     else {
-                        
                         let newUserReference = userReference.child(userID!)
                         newUserReference.setValue(["email": email, "username": fullName, "profileImageURL": nil])
                     }
                 })
             }
-            print("User email address \(String(describing: email))")
             UserDefaults.standard.set(true, forKey: "loggedIn")
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
             appDelegate.window?.rootViewController = TabBarController()
@@ -154,7 +151,7 @@ class AuthenticationViewController: UIViewController, GIDSignInDelegate, GIDSign
     }
     
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
-        print(error.localizedDescription)
+        SVProgressHUD.showError(withStatus: error.localizedDescription)
     }
     
     @objc func goToSignUp(){

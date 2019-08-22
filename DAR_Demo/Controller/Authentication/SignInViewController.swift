@@ -10,6 +10,7 @@ import UIKit
 import EasyPeasy
 import Firebase
 import FirebaseAuth
+import SVProgressHUD
 
 class SignInViewController: UIViewController {
     
@@ -37,6 +38,12 @@ class SignInViewController: UIViewController {
         let signInButton = CommonButton()
         signInButton.titleText = "Войти"
         return signInButton
+    }()
+    
+    let forgotPasswordLabel: CommonLabel = {
+        let forgotPasswordLabel = CommonLabel()
+        forgotPasswordLabel.text = "Забыли пароль?"
+        return forgotPasswordLabel
     }()
     
     override func viewDidLoad() {
@@ -75,6 +82,17 @@ class SignInViewController: UIViewController {
             Top(16).to(passwordTextField)
         )
         signInButton.addTarget(self, action: #selector(signIn), for: .touchUpInside)
+        
+        view.addSubview(forgotPasswordLabel)
+        forgotPasswordLabel.easy.layout(
+            CenterX(),
+            Height(height / 24),
+            Top(16).to(signInButton)
+        )
+        
+        let forgotPasswordLabelTap = UITapGestureRecognizer(target: self, action: #selector(forgotPasswordLabelTapped))
+        forgotPasswordLabel.isUserInteractionEnabled = true
+        forgotPasswordLabel.addGestureRecognizer(forgotPasswordLabelTap)
     }
     
     @objc func signIn(){
@@ -82,32 +100,22 @@ class SignInViewController: UIViewController {
             self.showAlert(message: "Необходимо заполнить все поля!")
         }
         else {
-            Auth.auth().signIn(withEmail: emailTextField.text!, password: passwordTextField.text!) { (user, error) in
-                if (error == nil){
-                    if let user = user {
-                        _ = user.user.displayName
-                        let user_email = user.user.email
-                        print(user_email!)
-                    }
-                    UserDefaults.standard.set(true, forKey: "loggedIn")
-                    let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                    appDelegate.window?.rootViewController = TabBarController()
-                    appDelegate.window?.tintColor = CustomColor.violetLight
-                }
-                else {
-                    if let errorCode = AuthErrorCode(rawValue: error!._code){
-                        switch errorCode{
-                        case .wrongPassword:
-                            self.showAlert(message: "Invalid Password. Try Again!")
-                        case .userNotFound:
-                            self.showAlert(message: "User Not Found. Try Again!")
-                        default:
-                            self.showAlert(message: "Unexpected Error. Try Again!")
-                        }
-                    }
-                }
+            SVProgressHUD.show()
+            FirebaseService.signIn_(withEmail: emailTextField.text!, password: passwordTextField.text!, success: {
+                SVProgressHUD.dismiss()
+                UserDefaults.standard.set(true, forKey: "loggedIn")
+                let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                appDelegate.window?.rootViewController = TabBarController()
+                appDelegate.window?.tintColor = CustomColor.violetLight
+            }) { (error) in
+                SVProgressHUD.showError(withStatus: error.localizedDescription)
             }
         }
+    }
+    
+    @objc func forgotPasswordLabelTapped(){
+        let controller = ResetPasswordController()
+        self.navigationController?.pushViewController(controller, animated: true)
     }
     
     func showAlert(message: String){
