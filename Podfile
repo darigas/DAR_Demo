@@ -16,7 +16,7 @@ target 'DAR_Demo' do
   pod 'GoogleSignIn'
   pod 'Firebase/Database'
   pod 'Firebase/Storage'
-  
+  pod 'SVProgressHUD'
   target 'DAR_DemoUITests' do
     inherit! :search_paths
     # Pods for testing

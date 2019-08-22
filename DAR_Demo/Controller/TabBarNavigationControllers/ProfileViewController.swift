@@ -14,6 +14,7 @@ import GoogleSignIn
 import Photos
 import FirebaseStorage
 import FirebaseDatabase
+import SVProgressHUD
 
 class ProfileViewController: UIViewController {
 
@@ -32,7 +33,8 @@ class ProfileViewController: UIViewController {
         let profileImage = UIImageView()
         profileImage.clipsToBounds = true
         profileImage.layer.cornerRadius = UIScreen.main.bounds.width / 8
-        profileImage.image = UIImage(named: "profile")
+        profileImage.image = UIImage(named: "profile")?.withRenderingMode(.alwaysTemplate)
+        profileImage.contentMode = UIView.ContentMode.center
         profileImage.backgroundColor = UIColor.lightGray
         return profileImage
     }()
@@ -45,7 +47,6 @@ class ProfileViewController: UIViewController {
     
     let usernameLabel: CommonLabel = {
         let usernameLabel = CommonLabel()
-        usernameLabel.text = "Имя пользователя"
         return usernameLabel
     }()
     
@@ -53,6 +54,8 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .white
+        
+        SVProgressHUD.show()
         
         let width = UIScreen.main.bounds.width
         let height = UIScreen.main.bounds.height
@@ -92,21 +95,36 @@ class ProfileViewController: UIViewController {
         
         let userID = Auth.auth().currentUser?.uid
         let reference = Database.database().reference()
-        reference.child("users").child(userID!).observeSingleEvent(of: .value) { (snapshot) in
-            let value = snapshot.value as! NSDictionary
-            let username = value["username"] as! String
-            self.currentUsername = username
-            let email = value["email"] as! String
-            self.currentEmail = email
-            if value["profileImageURL"] != nil {
-                let photoURL = value["profileImageURL"] as! String
-                self.currentProfileImageURL = photoURL
-                self.usernameLabel.text = username
-                let url = NSURL(string: photoURL)
-                self.profileImage.load(url: url as! URL)
+        
+        DispatchQueue.global(qos: .utility).async {
+            // SEND REQUEST HERE
+            reference.child("users").child(userID!).observeSingleEvent(of: .value) { (snapshot) in
+                let value = snapshot.value as! NSDictionary
+                let username = value["username"] as! String
+                self.currentUsername = username
+                let email = value["email"] as! String
+                self.currentEmail = email
+                if value["profileImageURL"] != nil {
+                    let photoURL = value["profileImageURL"] as! String
+                    self.currentProfileImageURL = photoURL
+                    DispatchQueue.main.async { [weak self] in
+                        // UPDATE UI HERE
+                        if self!.currentProfileImageURL != nil {
+                            self!.usernameLabel.text = self!.currentUsername
+                            let url = NSURL(string: self!.currentProfileImageURL!)
+                            if let data = try? Data(contentsOf: url as! URL) {
+                                let image = UIImage(data: data)
+                                self!.profileImage.contentMode = UIView.ContentMode.scaleToFill
+                                self?.profileImage.image = image
+                                SVProgressHUD.dismiss()
+                            }
+                        }
+                        self!.usernameLabel.text = self!.currentUsername
+                    }
+                }
             }
-            self.usernameLabel.text = username
         }
+        
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(ProfileViewController.handleSelectImageView))
         profileImage.addGestureRecognizer(tapGesture)
@@ -209,16 +227,4 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
         dismiss(animated: true, completion: nil)
     }
 }
-extension UIImageView {
-    func load(url: URL) {
-        DispatchQueue.global().async { [weak self] in
-            if let data = try? Data(contentsOf: url) {
-                if let image = UIImage(data: data) {
-                    DispatchQueue.main.async {
-                        self?.image = image
-                    }
-                }
-            }
-        }
-    }
-}
+

@@ -9,6 +9,7 @@
 import UIKit
 import SwiftyJSON
 import EasyPeasy
+import SVProgressHUD
 
 class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
