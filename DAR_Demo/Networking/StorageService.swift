@@ -27,8 +27,7 @@ class StorageService {
     }
     
     static func putProfileImage(withEmail email: String, username: String, userID: String, data: Data, success: @escaping() -> Void, failure: @escaping(Error) -> Void){
-        let rootStorage = Storage.storage().reference().child("profile_image")
-        let storage = rootStorage.child(userID)
+        let storage = Storage.storage().reference().child("profile_image").child(userID)
         
         storage.putData(data, metadata: nil) { (metadata, error) in
             if error != nil {
@@ -58,5 +57,28 @@ class StorageService {
             }
             success(username, nil)
         }
+    }
+    
+    static func changeProfileImage(data: Data, success: @escaping() -> Void, failure: @escaping(Error) -> Void){
+        let userID = FirebaseService.currentUserID
+        let storage = Storage.storage().reference().child("profile_image").child(userID)
+        
+        storage.putData(data, metadata: nil) { (metadata, error) in
+            if error != nil {
+                failure(error!)
+            }
+            storage.downloadURL(completion: { (url, error) in
+                if let profileImageURL = url?.absoluteString {
+                    let userID = FirebaseService.currentUserID
+                    let reference = ReferenceService.usersReference
+                    reference.child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
+                        let value = snapshot.value as! NSDictionary
+                        let username = value["username"] as! String
+                        reference.child(userID).setValue(["email": FirebaseService.currentUser.email, "username": username, "profileImageURL": profileImageURL])
+                    })
+                }
+            })
+        }
+        success()
     }
 }

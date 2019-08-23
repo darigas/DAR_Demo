@@ -138,23 +138,7 @@ class AuthenticationViewController: UIViewController, GIDSignInDelegate, GIDSign
                     appDelegate.window?.rootViewController = TabBarController()
                     appDelegate.window?.tintColor = CustomColor.violetLight
                 })
-//
-//                let database = Database.database().reference()
-//                let userReference = database.child("users")
-//                userReference.observeSingleEvent(of: .value, with: { (snapshot) in
-//                    if snapshot.hasChild(userID!) {
-//                        print("User logged in with Google Sign-In")
-//                    }
-//                    else {
-//                        let newUserReference = userReference.child(userID!)
-//                        newUserReference.setValue(["email": email, "username": fullName, "profileImageURL": nil])
-//                    }
-//                })
             }
-//            UserDefaults.standard.set(true, forKey: "loggedIn")
-//            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-//            appDelegate.window?.rootViewController = TabBarController()
-//            appDelegate.window?.tintColor = CustomColor.violetLight
         }
     }
     

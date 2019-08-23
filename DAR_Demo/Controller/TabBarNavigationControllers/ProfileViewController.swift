@@ -121,57 +121,7 @@ class ProfileViewController: UIViewController {
             }, failure: { (error) in
                 SVProgressHUD.showError(withStatus: error.localizedDescription)
             })
-//            StorageService.getProfileInfo(success: { (username, profileImageURL) in
-//                self.currentUsername = username
-//                if profileImageURL != nil {
-//                    self.currentProfileImageURL = profileImageURL
-//                    DispatchQueue.main.async { [weak self] in
-//                        // UPDATE UI HERE
-//                        self!.usernameLabel.text = self!.currentUsername
-//                        let url = NSURL(string: self!.currentProfileImageURL!)
-//                        if let data = try? Data(contentsOf: url as! URL) {
-//                            let image = UIImage(data: data)
-//                            self!.profileImage.contentMode = UIView.ContentMode.scaleToFill
-//                            self?.profileImage.image = image
-//                            SVProgressHUD.dismiss()
-//                        }
-//                    }
-//                }
-//                DispatchQueue.main.async { [weak self] in
-//                    SVProgressHUD.dismiss()
-//                    self!.usernameLabel.text = username
-//                }
-//            }, failure: <#(Error) -> Void#>)
-//            reference.child("users").child(userID!).observeSingleEvent(of: .value) { (snapshot) in
-//                let value = snapshot.value as! NSDictionary
-//                let username = value["username"] as! String
-//                self.currentUsername = username
-//                let email = value["email"] as! String
-//                self.currentEmail = email
-//                if value["profileImageURL"] != nil {
-//                    let photoURL = value["profileImageURL"] as! String
-//                    self.currentProfileImageURL = photoURL
-//                    DispatchQueue.main.async { [weak self] in
-//                        // UPDATE UI HERE
-//                        if self!.currentProfileImageURL != nil {
-//                            self!.usernameLabel.text = self!.currentUsername
-//                            let url = NSURL(string: self!.currentProfileImageURL!)
-//                            if let data = try? Data(contentsOf: url as! URL) {
-//                                let image = UIImage(data: data)
-//                                self!.profileImage.contentMode = UIView.ContentMode.scaleToFill
-//                                self?.profileImage.image = image
-//                                SVProgressHUD.dismiss()
-//                            }
-//                        }
-//                    }
-//                }
-//                DispatchQueue.main.async { [weak self] in
-//                    SVProgressHUD.dismiss()
-//                    self!.usernameLabel.text = username
-//                }
-//            }
         }
-        
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(ProfileViewController.handleSelectImageView))
         profileImage.addGestureRecognizer(tapGesture)
@@ -235,34 +185,47 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
         chosenImage = selectedImage
         profileImage.image = chosenImage
         
-        if let currentUser = Auth.auth().currentUser {
-            let userID = currentUser.uid
-            let storage = Storage.storage().reference().child("profile_image").child(userID)
-            let newPhoto = chosenImage
-            let imageData = newPhoto!.jpegData(compressionQuality: 0.1 )
-            storage.putData(imageData!, metadata: nil, completion: { (_, error) in
-                if error != nil {
-                    return
-                }
-                else {
-                    storage.downloadURL(completion: { (url, error) in
-                        if let profileImageURL = url?.absoluteString {
-                            let database = Database.database().reference()
-                            let userReference = database.child("users")
-                            let newUserReference = userReference.child(userID)
-                            
-                            let userID = Auth.auth().currentUser?.uid
-                            let reference = Database.database().reference()
-                            reference.child("users").child(userID!).observeSingleEvent(of: .value) { (snapshot) in
-                                let value = snapshot.value as! NSDictionary
-                                let username = value["username"] as! String
-                                newUserReference.setValue(["email": currentUser.email, "username": username, "profileImageURL": profileImageURL])
-                            }
-                        }
-                    })
-                }
-            })
+        let newPhoto = chosenImage
+        let imageData = newPhoto!.jpegData(compressionQuality: 0.1 )
+        StorageService.changeProfileImage(data: imageData!, success: {
+            SVProgressHUD.showInfo(withStatus: "Фото профиля было изменено!")
+        }) { (error) in
+            SVProgressHUD.showError(withStatus: error.localizedDescription)
         }
+        
+//        if let currentUser = Auth.auth().currentUser {
+////            let userID = currentUser.uid
+////            let storage = Storage.storage().reference().child("profile_image").child(userID)
+//            let newPhoto = chosenImage
+//            let imageData = newPhoto!.jpegData(compressionQuality: 0.1 )
+//            StorageService.changeProfileImage(data: imageData!, success: {
+//                SVProgressHUD.showInfo(withStatus: "Фото профиля было изменено!")
+//            }) { (error) in
+//                SVProgressHUD.showError(withStatus: error.localizedDescription)
+//            }
+////            storage.putData(imageData!, metadata: nil, completion: { (_, error) in
+////                if error != nil {
+////                    return
+////                }
+////                else {
+////                    storage.downloadURL(completion: { (url, error) in
+////                        if let profileImageURL = url?.absoluteString {
+////                            let database = Database.database().reference()
+////                            let userReference = database.child("users")
+////                            let newUserReference = userReference.child(userID)
+////
+////                            let userID = Auth.auth().currentUser?.uid
+////                            let reference = Database.database().reference()
+////                            reference.child("users").child(userID!).observeSingleEvent(of: .value) { (snapshot) in
+////                                let value = snapshot.value as! NSDictionary
+////                                let username = value["username"] as! String
+////                                newUserReference.setValue(["email": currentUser.email, "username": username, "profileImageURL": profileImageURL])
+////                            }
+////                        }
+////                    })
+////                }
+////            })
+//        }
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
