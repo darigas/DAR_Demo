@@ -131,13 +131,12 @@ class AuthenticationViewController: UIViewController, GIDSignInDelegate, GIDSign
                     SVProgressHUD.showError(withStatus: error?.localizedDescription)
                 }
                 let userID = user?.user.uid
-                StorageService.createReferenceGoogle(withEmail: email!, username: fullName!, userID: userID!, success: {
-                    SVProgressHUD.dismiss()
-                    UserDefaults.standard.set(true, forKey: "loggedIn")
-                    let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                    appDelegate.window?.rootViewController = TabBarController()
-                    appDelegate.window?.tintColor = CustomColor.violetLight
-                })
+                StorageService.createReferenceGoogle(withEmail: email!, username: fullName!, userID: userID!)
+                SVProgressHUD.dismiss()
+                UserDefaults.standard.set(true, forKey: "loggedIn")
+                let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                appDelegate.window?.rootViewController = TabBarController()
+                appDelegate.window?.tintColor = CustomColor.violetLight
             }
         }
     }

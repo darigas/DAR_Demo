@@ -15,14 +15,13 @@ import FirebaseStorage
 
 class StorageService {
     
-    static func createReferenceGoogle(withEmail email: String, username: String, userID: String, success: @escaping() -> Void){
-        ReferenceService.usersReference.observeSingleEvent(of: .value) { (snapshot) in
-            if snapshot.hasChild(userID){
-                print("User logged in with Google Sign-In")
+    static func createReferenceGoogle(withEmail email: String, username: String, userID: String){
+        ReferenceService.usersReference.observeSingleEvent(of: .value) { (snapshot) in 
+            if snapshot.hasChild(userID) ==  false {
+                ReferenceService.newUserReference(withEmail: email, username: username, userID: userID, success: {
+                    print("New Google User")
+                })
             }
-            ReferenceService.newUserReference(withEmail: email, username: username, userID: userID, success: {
-                success()
-            })
         }
     }
     

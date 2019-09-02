@@ -17,7 +17,6 @@ class ResetPasswordController: UIViewController {
         emailTextField.placeholder = "Электронный адрес"
         emailTextField.autocapitalizationType = .none
         emailTextField.borderStyle = .roundedRect
-        emailTextField.font = CustomFont.marion
         emailTextField.textColor = CustomColor.violetDark
         return emailTextField
     }()

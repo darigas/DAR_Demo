@@ -184,6 +184,7 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
         dismiss(animated: true, completion: nil)
         chosenImage = selectedImage
         profileImage.image = chosenImage
+        profileImage.contentMode = UIView.ContentMode.scaleToFill
         
         let newPhoto = chosenImage
         let imageData = newPhoto!.jpegData(compressionQuality: 0.1 )
@@ -192,40 +193,6 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
         }) { (error) in
             SVProgressHUD.showError(withStatus: error.localizedDescription)
         }
-        
-//        if let currentUser = Auth.auth().currentUser {
-////            let userID = currentUser.uid
-////            let storage = Storage.storage().reference().child("profile_image").child(userID)
-//            let newPhoto = chosenImage
-//            let imageData = newPhoto!.jpegData(compressionQuality: 0.1 )
-//            StorageService.changeProfileImage(data: imageData!, success: {
-//                SVProgressHUD.showInfo(withStatus: "Фото профиля было изменено!")
-//            }) { (error) in
-//                SVProgressHUD.showError(withStatus: error.localizedDescription)
-//            }
-////            storage.putData(imageData!, metadata: nil, completion: { (_, error) in
-////                if error != nil {
-////                    return
-////                }
-////                else {
-////                    storage.downloadURL(completion: { (url, error) in
-////                        if let profileImageURL = url?.absoluteString {
-////                            let database = Database.database().reference()
-////                            let userReference = database.child("users")
-////                            let newUserReference = userReference.child(userID)
-////
-////                            let userID = Auth.auth().currentUser?.uid
-////                            let reference = Database.database().reference()
-////                            reference.child("users").child(userID!).observeSingleEvent(of: .value) { (snapshot) in
-////                                let value = snapshot.value as! NSDictionary
-////                                let username = value["username"] as! String
-////                                newUserReference.setValue(["email": currentUser.email, "username": username, "profileImageURL": profileImageURL])
-////                            }
-////                        }
-////                    })
-////                }
-////            })
-//        }
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {

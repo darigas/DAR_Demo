@@ -24,7 +24,6 @@ class SignUpViewController: UIViewController {
         emailTextField.placeholder = "Электронный адрес"
         emailTextField.autocapitalizationType = .none
         emailTextField.borderStyle = .roundedRect
-        emailTextField.font = CustomFont.marion
         emailTextField.textColor = CustomColor.violetDark
         return emailTextField
     }()
@@ -34,7 +33,6 @@ class SignUpViewController: UIViewController {
         passwordTextField.placeholder = "Пароль"
         passwordTextField.isSecureTextEntry = true
         passwordTextField.borderStyle = .roundedRect
-        passwordTextField.font = CustomFont.marion
         passwordTextField.textColor = CustomColor.violetDark
         return passwordTextField
     }()
@@ -43,7 +41,6 @@ class SignUpViewController: UIViewController {
         let usernameTextField = UITextField()
         usernameTextField.placeholder = "Имя пользователя"
         usernameTextField.borderStyle = .roundedRect
-        usernameTextField.font = CustomFont.marion
         usernameTextField.textColor = CustomColor.violetDark
         return usernameTextField
     }()
@@ -165,7 +162,7 @@ class SignUpViewController: UIViewController {
     func showAlert(message: String){
         let alert = UIAlertController(title: message, message: "", preferredStyle: .alert)
         alert.view.tintColor = CustomColor.violetDark
-        alert.setValue(NSAttributedString(string: alert.title!, attributes: [NSAttributedString.Key.font : CustomFont.marion, NSAttributedString.Key.foregroundColor : CustomColor.violetDark]), forKey: "attributedTitle")
+        alert.setValue(NSAttributedString(string: alert.title!, attributes: [NSAttributedString.Key.foregroundColor : CustomColor.violetDark]), forKey: "attributedTitle")
         let action = UIAlertAction(title: "OK", style: .default, handler: nil)
         action.setValue(CustomColor.violetDark, forKey: "titleTextColor")
         alert.addAction(action)

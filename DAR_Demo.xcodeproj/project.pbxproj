@@ -24,10 +24,16 @@
 		707E5BA8230F103400A6001B /* ResetPasswordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707E5BA7230F103400A6001B /* ResetPasswordController.swift */; };
 		707E5BAA230F174200A6001B /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707E5BA9230F174200A6001B /* StorageService.swift */; };
 		707E5BAC230F230E00A6001B /* ReferenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707E5BAB230F230E00A6001B /* ReferenceService.swift */; };
+		707E5BAE2310587100A6001B /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707E5BAD2310587100A6001B /* Movie.swift */; };
+		707E5BB02310595800A6001B /* Cinema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707E5BAF2310595800A6001B /* Cinema.swift */; };
+		707E5BB4231059D300A6001B /* MovieService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707E5BB3231059D300A6001B /* MovieService.swift */; };
 		709BAF65230180FB00473429 /* CinemasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709BAF64230180FB00473429 /* CinemasViewController.swift */; };
 		709BAF692301818000473429 /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709BAF682301818000473429 /* NewsViewController.swift */; };
 		709BAF6B230181AB00473429 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709BAF6A230181AB00473429 /* ProfileViewController.swift */; };
 		709BAF6F2301853700473429 /* CommonButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709BAF6E2301853700473429 /* CommonButton.swift */; };
+		70BB948E2319B9F900A2D0A1 /* CinemaService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BB948D2319B9F900A2D0A1 /* CinemaService.swift */; };
+		70BB94902319C46C00A2D0A1 /* MovieCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BB948F2319C46B00A2D0A1 /* MovieCollectionViewCell.swift */; };
+		70BB9493231D306800A2D0A1 /* MovieDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BB9492231D306800A2D0A1 /* MovieDetailViewController.swift */; };
 		70C7089E22FBF22F00393DAB /* MoviesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C7089D22FBF22F00393DAB /* MoviesViewController.swift */; };
 		70C708A022FBF30400393DAB /* MoviesRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C7089F22FBF30400393DAB /* MoviesRow.swift */; };
 		70C708A222FBF62600393DAB /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C708A122FBF62600393DAB /* TabBarController.swift */; };
@@ -66,10 +72,16 @@
 		707E5BA7230F103400A6001B /* ResetPasswordController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordController.swift; sourceTree = "<group>"; };
 		707E5BA9230F174200A6001B /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
 		707E5BAB230F230E00A6001B /* ReferenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferenceService.swift; sourceTree = "<group>"; };
+		707E5BAD2310587100A6001B /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
+		707E5BAF2310595800A6001B /* Cinema.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cinema.swift; sourceTree = "<group>"; };
+		707E5BB3231059D300A6001B /* MovieService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieService.swift; sourceTree = "<group>"; };
 		709BAF64230180FB00473429 /* CinemasViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CinemasViewController.swift; sourceTree = "<group>"; };
 		709BAF682301818000473429 /* NewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
 		709BAF6A230181AB00473429 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		709BAF6E2301853700473429 /* CommonButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonButton.swift; sourceTree = "<group>"; };
+		70BB948D2319B9F900A2D0A1 /* CinemaService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CinemaService.swift; sourceTree = "<group>"; };
+		70BB948F2319C46B00A2D0A1 /* MovieCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCollectionViewCell.swift; sourceTree = "<group>"; };
+		70BB9492231D306800A2D0A1 /* MovieDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailViewController.swift; sourceTree = "<group>"; };
 		70C7089D22FBF22F00393DAB /* MoviesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesViewController.swift; sourceTree = "<group>"; };
 		70C7089F22FBF30400393DAB /* MoviesRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesRow.swift; sourceTree = "<group>"; };
 		70C708A122FBF62600393DAB /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
@@ -170,6 +182,7 @@
 				705DB39D23089286004B3B21 /* CommonLabel.swift */,
 				705DB3A323096692004B3B21 /* CustomColor.swift */,
 				705DB3A523096977004B3B21 /* CustomFont.swift */,
+				70BB948F2319C46B00A2D0A1 /* MovieCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -177,6 +190,8 @@
 		701502B522D685F100A9F7D0 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				707E5BAD2310587100A6001B /* Movie.swift */,
+				707E5BAF2310595800A6001B /* Cinema.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -187,6 +202,8 @@
 				707E5BA3230EE6ED00A6001B /* FirebaseService.swift */,
 				707E5BA9230F174200A6001B /* StorageService.swift */,
 				707E5BAB230F230E00A6001B /* ReferenceService.swift */,
+				707E5BB3231059D300A6001B /* MovieService.swift */,
+				70BB948D2319B9F900A2D0A1 /* CinemaService.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -205,12 +222,21 @@
 			isa = PBXGroup;
 			children = (
 				70C708A122FBF62600393DAB /* TabBarController.swift */,
-				70C7089D22FBF22F00393DAB /* MoviesViewController.swift */,
+				70BB9491231D304600A2D0A1 /* MovieControllers */,
 				709BAF64230180FB00473429 /* CinemasViewController.swift */,
 				709BAF682301818000473429 /* NewsViewController.swift */,
 				709BAF6A230181AB00473429 /* ProfileViewController.swift */,
 			);
 			path = TabBarNavigationControllers;
+			sourceTree = "<group>";
+		};
+		70BB9491231D304600A2D0A1 /* MovieControllers */ = {
+			isa = PBXGroup;
+			children = (
+				70C7089D22FBF22F00393DAB /* MoviesViewController.swift */,
+				70BB9492231D306800A2D0A1 /* MovieDetailViewController.swift */,
+			);
+			path = MovieControllers;
 			sourceTree = "<group>";
 		};
 		9F4768DD941A852FFF2D094D /* Pods */ = {
@@ -440,17 +466,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				707E5BAE2310587100A6001B /* Movie.swift in Sources */,
 				7015029422D67F4700A9F7D0 /* AuthenticationViewController.swift in Sources */,
 				7029B10A22DB1BDB003929EA /* SignUpViewController.swift in Sources */,
 				707E5BA8230F103400A6001B /* ResetPasswordController.swift in Sources */,
+				70BB9493231D306800A2D0A1 /* MovieDetailViewController.swift in Sources */,
+				707E5BB02310595800A6001B /* Cinema.swift in Sources */,
 				707E5BAC230F230E00A6001B /* ReferenceService.swift in Sources */,
+				707E5BB4231059D300A6001B /* MovieService.swift in Sources */,
 				707E5BA4230EE6ED00A6001B /* FirebaseService.swift in Sources */,
 				7029B10E22DB3143003929EA /* SignInViewController.swift in Sources */,
 				709BAF692301818000473429 /* NewsViewController.swift in Sources */,
+				70BB94902319C46C00A2D0A1 /* MovieCollectionViewCell.swift in Sources */,
 				709BAF6B230181AB00473429 /* ProfileViewController.swift in Sources */,
 				705DB39E23089286004B3B21 /* CommonLabel.swift in Sources */,
 				70C708A022FBF30400393DAB /* MoviesRow.swift in Sources */,
 				705DB3A623096977004B3B21 /* CustomFont.swift in Sources */,
+				70BB948E2319B9F900A2D0A1 /* CinemaService.swift in Sources */,
 				70C7089E22FBF22F00393DAB /* MoviesViewController.swift in Sources */,
 				705DB3A423096692004B3B21 /* CustomColor.swift in Sources */,
 				707E5BAA230F174200A6001B /* StorageService.swift in Sources */,

@@ -44,32 +44,13 @@ class FirebaseService {
                 }, failure: { (error) in
                     SVProgressHUD.showError(withStatus: error.localizedDescription)
                 })
-//                storage.putData(imageData, metadata: nil, completion: { (metadata, error) in
-//                    if error != nil {
-//                        failure(error!)
-//                        return
-//                    }
-//                    storage.downloadURL(completion: { (url, error) in
-//                        if let profileImageURL = url?.absoluteString {
-//                            let database = Database.database().reference()
-//                            let userReference = database.child("users")
-//                            let newUserReference = userReference.child(userID!)
-//                            newUserReference.setValue(["email": email, "username": username, "profileImageURL": profileImageURL])
-//                        }
-//                    })
-//                })
             }
             else {
                 ReferenceService.newUserReference(withEmail: email, username: username, userID: userID!, success: {
                     success()
                 })
-//                let database = Database.database().reference()
-//                let userReference = database.child("users")
-//                let newUserReference = userReference.child(userID!)
-//                newUserReference.setValue(["email": email, "username": username, "profileImageURL":  nil])
             }
         }
-//        success()
     }
     
     static func signOut(success: @escaping() -> Void, failure: @escaping(Error) -> Void){

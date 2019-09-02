@@ -36,7 +36,7 @@ class CommonButton: UIButton {
         self.clipsToBounds = true
         self.backgroundColor = CustomColor.violetLight
         self.layer.cornerRadius = 10
-        self.titleLabel?.font = CustomFont.marion
+        self.titleLabel?.font = UIFont.boldSystemFont(ofSize: (self.titleLabel?.font.pointSize)!)
     }
     
     override var isHighlighted: Bool {

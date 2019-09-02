@@ -9,35 +9,32 @@
 import UIKit
 import SwiftyJSON
 import EasyPeasy
+import SVProgressHUD
 
 class MoviesRow: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource {
     
-    private let reuseableCell = "movieCell"
-    let itemPerRow: CGFloat = 4
-    let hardCodedPadding: CGFloat = 5
-    let itemsCollection = 12
+    private let reuseableCollectionCellID = "movieCellID"
+    var moviesToPresent = [Movie]()
     
-    var booksURLS: [String] = []
-    
-    let videosCollectionView: UICollectionView = {
+    let moviesCollectionView: UICollectionView = {
         
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.minimumLineSpacing = 5
-        layout.sectionInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+        layout.minimumLineSpacing = 10
+        layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = .black
+        collectionView.backgroundColor = CustomColor.sunset
         return collectionView
     }()
     
     func setupViews() {
-        addSubview(videosCollectionView)
+        addSubview(moviesCollectionView)
         
-        videosCollectionView.dataSource = self
-        videosCollectionView.delegate = self
+        moviesCollectionView.dataSource = self
+        moviesCollectionView.delegate = self
         
-        videosCollectionView.easy.layout(
+        moviesCollectionView.easy.layout(
             Top(0),
             Bottom(0),
             Left(0),
@@ -50,9 +47,9 @@ class MoviesRow: UITableViewCell, UICollectionViewDelegate, UICollectionViewData
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseableCell)
-        videosCollectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseableCell)
-        setupViews()
+        super.init(style: style, reuseIdentifier: reuseableCollectionCellID)
+        moviesCollectionView.register(MovieCollectionViewCell.self, forCellWithReuseIdentifier: reuseableCollectionCellID)
+        self.setupViews()
     }
     
     override func layoutSubviews() {
@@ -64,32 +61,28 @@ class MoviesRow: UITableViewCell, UICollectionViewDelegate, UICollectionViewData
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        //        return itemsCollection
-        return booksURLS.count
+        return moviesToPresent.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseableCell, for: indexPath) as! UICollectionViewCell
-        cell.backgroundColor = .red
-        let imageView = UIImageView()
-        imageView.easy.layout(
-            Top(0),
-            Bottom(0),
-            Left(0),
-            Right(0)
-        )
-        let url = URL(string: booksURLS[indexPath.row])!
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseableCollectionCellID, for: indexPath) as! MovieCollectionViewCell
+        let url = URL(string: moviesToPresent[indexPath.row].poster)!
+        let title = moviesToPresent[indexPath.row].title
         let data = try? Data(contentsOf: url)
-        imageView.image = UIImage(data: data!)
+        let image = UIImage(data: data!)
+        cell.instantiate(image: image!, title: title )
+        SVProgressHUD.dismiss()
+        cell.layer.cornerRadius = 5
+        cell.layer.masksToBounds = true
         return cell
     }
 }
 
 extension MoviesRow: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let itemsPerRow: CGFloat = 4
-        let hardCodedPadding: CGFloat = 5
-        let itemWidth = (collectionView.bounds.width / itemsPerRow) - hardCodedPadding
+        let itemsPerRow: CGFloat = 2
+        let hardCodedPadding: CGFloat = 10
+        let itemWidth = (collectionView.bounds.width / itemsPerRow) - (1.5 * hardCodedPadding)
         let itemHeight = collectionView.bounds.height - (2 * hardCodedPadding)
         return CGSize(width: itemWidth, height: itemHeight)
     }

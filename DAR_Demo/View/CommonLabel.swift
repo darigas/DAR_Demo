@@ -23,7 +23,7 @@ class CommonLabel: UILabel {
     }
     
     func setup() {
-        self.font = CustomFont.marion
         self.textColor = CustomColor.violetDark
+        self.font = UIFont.boldSystemFont(ofSize: self.font.pointSize)
     }
 }
