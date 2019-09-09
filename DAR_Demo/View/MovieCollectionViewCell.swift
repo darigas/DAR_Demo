@@ -10,6 +10,7 @@ import UIKit
 import EasyPeasy
 
 class MovieCollectionViewCell: UICollectionViewCell {
+    
     let movieTitle: UILabel = {
         let movieTitle = UILabel()
         movieTitle.backgroundColor = CustomColor.violetDark

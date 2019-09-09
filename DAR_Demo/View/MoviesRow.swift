@@ -76,6 +76,12 @@ class MoviesRow: UITableViewCell, UICollectionViewDelegate, UICollectionViewData
         cell.layer.masksToBounds = true
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let controller = MovieDetailViewController.instantiate(movie: moviesToPresent[indexPath.row])
+        self.window?.rootViewController?.present(controller, animated: true, completion: nil)
+//        self.window?.rootViewController?.navigationController?.pushViewController(controller, animated: true)
+    }
 }
 
 extension MoviesRow: UICollectionViewDelegateFlowLayout {
